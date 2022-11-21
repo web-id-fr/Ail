@@ -4,7 +4,6 @@ namespace Webid\Ail;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Webid\Ail\Commands\AilCommand;
 
 class AilServiceProvider extends PackageServiceProvider
 {
