@@ -61,7 +61,7 @@
         "laravel": {
             "providers": [
                 "Webid\\Ail\\AilServiceProvider"
-            ],
+            ]
         }
     },
     "minimum-stability": "dev",
