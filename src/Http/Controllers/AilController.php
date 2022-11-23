@@ -3,7 +3,6 @@
 namespace Webid\Ail\Http\Controllers;
 
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Webid\Ail\Http\Middleware\VerifyEnv;
 use Webid\Ail\Http\Middleware\VerifyGuard;
