@@ -2,8 +2,8 @@
 
 return [
     'routes' => [
-        'prefix' => 'debug-impersonate',
-        'name' => 'debug-impersonate',
+        'prefix' => 'ail',
+        'name' => 'ail',
     ],
     'guards' => [
         'web',

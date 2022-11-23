@@ -11,7 +11,7 @@
     <ul>
         @foreach($guards as $guard)
             <li>
-                <a href="{{ route(config('ail.routes.name'), ['guard' => $guard]) }}" @if($guard === $actualGuard) class="active" @endif>
+                <a href="{{ route(config('ail.routes.name') . '.index', ['guard' => $guard]) }}" @if($guard === $actualGuard) class="active" @endif>
                     {{ $guard }}
                 </a>
             </li>
@@ -24,10 +24,10 @@
             <li>
                 <a
                     @if($user->getKey() === $actualUser?->getKey())
-                        href="{{ route('impersonate.leave') }}"
+                        href="{{ route(config('ail.routes.name') . '.impersonate.leave') }}"
                         class="active"
                     @else
-                        href="{{ route('impersonate', ['id' => $user->getKey(), 'guardName' => $actualGuard]) }}"
+                        href="{{ route(config('ail.routes.name') . '.impersonate', ['id' => $user->getKey(), 'guardName' => $actualGuard]) }}"
                     @endif
                 >
                     {{ $user->getImpersonateName() }}

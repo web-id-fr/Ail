@@ -2,13 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use Webid\Ail\Http\Controllers\AilController;
-
-Route::get('/impersonate/take/{id}/{guardName?}',
-    '\Lab404\Impersonate\Controllers\ImpersonateController@take')->name('impersonate');
-Route::get('/impersonate/leave',
-    '\Lab404\Impersonate\Controllers\ImpersonateController@leave')->name('impersonate.leave');
+use Webid\Ail\Http\Controllers\ImpersonateController;
 
 Route::prefix(config('ail.routes.prefix'))
+    ->name(config('ail.routes.name') . '.')
     ->group(function () {
-        Route::get('users/{guard?}', [AilController::class, 'index'])->name(config('ail.routes.name'));
+        Route::get('impersonate/take/{id}/{guardName?}', [ImpersonateController::class, 'take'])
+            ->name('impersonate');
+        Route::get('impersonate/leave', [ImpersonateController::class, 'leave'])
+            ->name('impersonate.leave');
+        Route::get('{guard?}', [AilController::class, 'index'])
+            ->name('index');
     });

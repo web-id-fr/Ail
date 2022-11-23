@@ -2,16 +2,12 @@
 
 namespace Webid\Ail;
 
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class AilServiceProvider extends PackageServiceProvider
 {
-    public function __construct($app)
-    {
-        parent::__construct($app);
-    }
-
     public function configurePackage(Package $package): void
     {
         /*
@@ -23,6 +19,11 @@ class AilServiceProvider extends PackageServiceProvider
             ->name('ail')
             ->hasConfigFile()
             ->hasRoute('web')
+            ->hasInstallCommand(function(InstallCommand $command) {
+                $command
+                    ->publishConfigFile()
+                    ->askToStarRepoOnGitHub('web-id/ail');
+            })
             ->hasViews();
     }
 }
