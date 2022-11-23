@@ -9,6 +9,10 @@ pest:
 stan:
 	./vendor/bin/phpstan
 
+pint:
+	./vendor/bin/pint
+
 test:
+	make pint
 	make pest
 	make stan

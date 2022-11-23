@@ -5,8 +5,8 @@ return [
         'prefix' => 'ail',
         'name' => 'ail',
         'middlewares' => [
-            'web'
-        ]
+            'web',
+        ],
     ],
     'guards' => [
         'web',

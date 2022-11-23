@@ -92,8 +92,8 @@ class TestCase extends Orchestra
                 'prefix' => 'debug-impersonate',
                 'name' => 'debug-impersonate',
                 'middlewares' => [
-                    'web'
-                ]
+                    'web',
+                ],
             ],
             'guards' => [
                 'customers',

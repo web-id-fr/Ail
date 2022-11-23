@@ -33,12 +33,9 @@ class ImpersonateController extends Controller
         }
 
         if ($this->impersonateManager->isImpersonating()) {
-            abort(403);
-        }
-
-        /** @phpstan-ignore-next-line  */
-        if (! $user->canImpersonate()) {
-            abort(403);
+            $this->impersonateManager->leave();
+            /** @var Authenticatable $user */
+            $user = auth()->user();
         }
 
         $userToImpersonate = $this->impersonateManager->findUserById($id, $guardName);
@@ -53,10 +50,6 @@ class ImpersonateController extends Controller
 
     public function leave(): RedirectResponse
     {
-        if (! $this->impersonateManager->isImpersonating()) {
-            abort(403);
-        }
-
         $this->impersonateManager->leave();
 
         return redirect()->back();
