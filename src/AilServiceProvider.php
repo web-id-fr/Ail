@@ -19,10 +19,10 @@ class AilServiceProvider extends PackageServiceProvider
             ->name('ail')
             ->hasConfigFile()
             ->hasRoute('web')
-            ->hasInstallCommand(function(InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
-                    ->askToStarRepoOnGitHub('web-id/ail');
+                    ->askToStarRepoOnGitHub('web-id-fr/ail');
             })
             ->hasViews();
     }

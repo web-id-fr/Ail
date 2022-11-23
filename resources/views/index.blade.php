@@ -5,35 +5,48 @@
     <title>AIL - Impersonate</title>
 </head>
 <body>
-    <h1>IMPERSONATE USERS</h1>
+<h1>IMPERSONATE USERS</h1>
 
-    <h2>GUARDS</h2>
-    <ul>
-        @foreach($guards as $guard)
-            <li>
-                <a href="{{ route(config('ail.routes.name') . '.index', ['guard' => $guard]) }}" @if($guard === $actualGuard) class="active" @endif>
-                    {{ $guard }}
-                </a>
-            </li>
-        @endforeach
-    </ul>
+<h2>GUARDS</h2>
+<ul>
+    @foreach($guards as $guard)
+        <li>
+            <a href="{{ route(config('ail.routes.name') . '.index', ['guard' => $guard]) }}" @if($guard === $actualGuard) class="active" @endif>
+                {{ $guard }}
+            </a>
+        </li>
+    @endforeach
+</ul>
 
-    <h3>USERS</h3>
-    <ul>
-        @foreach($users as $user)
+<h3>USERS</h3>
+<ul>
+    @foreach($users as $user)
+        @php
+            $isActualImpersonatedUser = $isImpersonating && $user->getKey() === $actualUser?->getKey();
+        @endphp
+
+        @if(
+            ($impersonateId && $user->getKey() !== $impersonateId)
+            || (!$impersonateId && $user->getKey() !== $actualUser->getKey())
+        )
             <li>
                 <a
-                    @if($user->getKey() === $actualUser?->getKey())
-                        href="{{ route(config('ail.routes.name') . '.impersonate.leave') }}"
-                        class="active"
-                    @else
+                    @if(!$isActualImpersonatedUser)
                         href="{{ route(config('ail.routes.name') . '.impersonate', ['id' => $user->getKey(), 'guardName' => $actualGuard]) }}"
+                    @else
+                        href="#"
                     @endif
                 >
-                    {{ $user->getImpersonateName() }}
+                    @if($isActualImpersonatedUser)
+                        <strong>{{ $user->getKey() }} - {{ $user->getImpersonateName() }}</strong>
+                        <a href="{{ route(config('ail.routes.name') . '.impersonate.leave') }}"><button>LEAVE</button></a>
+                    @else
+                        {{ $user->getKey() }} - {{ $user->getImpersonateName() }}
+                    @endif
                 </a>
             </li>
-        @endforeach
-    </ul>
+        @endif
+    @endforeach
+</ul>
 </body>
 </html>

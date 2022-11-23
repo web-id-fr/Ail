@@ -23,11 +23,33 @@ class TestCase extends Orchestra
     {
         parent::getEnvironmentSetUp($app);
 
+        $this->setDefaultConfig();
+
+        include_once __DIR__.'/Database/migrations/create_admins_table.php';
+        include_once __DIR__.'/Database/migrations/create_customers_table.php';
+
+        (new \CreateAdminsTable())->up();
+        (new \CreateCustomersTable())->up();
+    }
+
+    protected function getPackageProviders($app): array
+    {
+        return [
+            AilServiceProvider::class,
+        ];
+    }
+
+    protected function setDefaultConfig(): void
+    {
         config()->set('database.default', 'sqlite');
         config()->set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',
+        ]);
+        config()->set('auth.defaults', [
+            'guard' => 'customers',
+            'passwords' => 'users',
         ]);
         config()->set('auth.guards', [
             'customers' => [
@@ -69,6 +91,9 @@ class TestCase extends Orchestra
             'routes' => [
                 'prefix' => 'debug-impersonate',
                 'name' => 'debug-impersonate',
+                'middlewares' => [
+                    'web'
+                ]
             ],
             'guards' => [
                 'customers',
@@ -83,18 +108,5 @@ class TestCase extends Orchestra
             'perPage' => 15,
         ]);
         config()->set('app.env', 'local');
-
-        include_once __DIR__.'/Database/migrations/create_admins_table.php';
-        include_once __DIR__.'/Database/migrations/create_customers_table.php';
-
-        (new \CreateAdminsTable())->up();
-        (new \CreateCustomersTable())->up();
-    }
-
-    protected function getPackageProviders($app): array
-    {
-        return [
-            AilServiceProvider::class,
-        ];
     }
 }

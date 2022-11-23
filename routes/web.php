@@ -5,7 +5,8 @@ use Webid\Ail\Http\Controllers\AilController;
 use Webid\Ail\Http\Controllers\ImpersonateController;
 
 Route::prefix(config('ail.routes.prefix'))
-    ->name(config('ail.routes.name') . '.')
+    ->middleware(config('ail.routes.middlewares', []))
+    ->name(config('ail.routes.name').'.')
     ->group(function () {
         Route::get('impersonate/take/{id}/{guardName?}', [ImpersonateController::class, 'take'])
             ->name('impersonate');

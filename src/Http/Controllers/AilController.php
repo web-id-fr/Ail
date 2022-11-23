@@ -4,14 +4,17 @@ namespace Webid\Ail\Http\Controllers;
 
 use Exception;
 use Illuminate\View\View;
+use Lab404\Impersonate\Services\ImpersonateManager;
 use Webid\Ail\Http\Middleware\VerifyEnv;
 use Webid\Ail\Http\Middleware\VerifyGuard;
 use Webid\Ail\Services\UserGuardService;
 
 class AilController extends Controller
 {
-    public function __construct(private readonly UserGuardService $userGuardService)
-    {
+    public function __construct(
+        private readonly UserGuardService $userGuardService,
+        private readonly ImpersonateManager $impersonateManager
+    ) {
         $this->middleware(VerifyGuard::class);
         $this->middleware(VerifyEnv::class);
     }
@@ -28,10 +31,12 @@ class AilController extends Controller
 
         $guard = $guard ?: $defaultGuard;
 
-        $actualUser = auth($guard)->user();
+        $actualUser = auth()->user();
         $users = $this->userGuardService->getUsersForGuard($guard);
 
         return view('ail::index', [
+            'isImpersonating' => $this->impersonateManager->isImpersonating(),
+            'impersonateId' => $this->impersonateManager->getImpersonatorId(),
             'users' => $users,
             'guards' => $guards,
             'actualGuard' => $guard,

@@ -4,6 +4,9 @@ return [
     'routes' => [
         'prefix' => 'ail',
         'name' => 'ail',
+        'middlewares' => [
+            'web'
+        ]
     ],
     'guards' => [
         'web',
