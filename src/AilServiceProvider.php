@@ -17,6 +17,7 @@ class AilServiceProvider extends PackageServiceProvider
         $package
             ->name('ail')
             ->hasConfigFile()
+            ->hasRoute('web')
             ->hasViews();
     }
 }
