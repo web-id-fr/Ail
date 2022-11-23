@@ -36,15 +36,18 @@ class UserGuardService
             throw new GuardUnauthorized();
         }
 
+        /** @var string|null $provider */
+        $provider = $this->getProviderForGuard($guard);
+
         /** @var string|null $driver */
-        $driver = config('auth.providers.'.$guard.'.driver');
+        $driver = config('auth.providers.'.$provider.'.driver');
 
         if ($driver !== 'eloquent') {
             throw new ProviderDriverException();
         }
 
         /** @var string|null $model */
-        $model = config('auth.providers.'.$guard.'.model');
+        $model = config('auth.providers.'.$provider.'.model');
 
         if (! $model || ! class_exists($model)) {
             throw new ProviderModelException();
@@ -54,5 +57,13 @@ class UserGuardService
         $instance = new $model;
 
         return $instance;
+    }
+
+    private function getProviderForGuard(string $guard): ?string
+    {
+        /** @var string|null $provider */
+        $provider = config("auth.guards.$guard.provider");
+
+        return $provider;
     }
 }

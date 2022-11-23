@@ -7,6 +7,11 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class AilServiceProvider extends PackageServiceProvider
 {
+    public function __construct($app)
+    {
+        parent::__construct($app);
+    }
+
     public function configurePackage(Package $package): void
     {
         /*

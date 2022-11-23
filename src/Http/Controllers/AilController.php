@@ -20,16 +20,14 @@ class AilController extends Controller
     /**
      * @throws Exception
      */
-    public function index(Request $request): View
+    public function index(string $guard = null): View
     {
         /** @var array $guards */
         $guards = config('ail.guards');
         /** @var string $defaultGuard */
         $defaultGuard = $guards[0];
 
-        $guard = $request->has('guard')
-            ? $request->string('guard')->value()
-            : $defaultGuard;
+        $guard = $guard ?: $defaultGuard;
 
         $actualUser = auth($guard)->user();
         $users = $this->userGuardService->getUsersForGuard($guard);

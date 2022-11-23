@@ -3,14 +3,20 @@
 use function Pest\Laravel\get;
 
 it('can index page without specified guard', function () {
-    get(route('debug-impersonate'))
+    $request = get(route('debug-impersonate'))
         ->assertStatus(200);
-});
+
+    $users = $request->viewData('users');
+    $this->assertEquals(3, $users->count());
+})->with('customers', 'admins');
 
 it('can index page with guard existing', function () {
-    get(route('debug-impersonate', ['guard' => 'customers']))
+    $request = get(route('debug-impersonate', ['guard' => 'admins']))
         ->assertStatus(200);
-});
+
+    $users = $request->viewData('users');
+    $this->assertEquals(2, $users->count());
+})->with('customers', 'admins');
 
 it('cannot index page with guard unknown', function () {
     get(route('debug-impersonate', ['guard' => 'unknown']))
