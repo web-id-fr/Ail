@@ -33,21 +33,21 @@ class UserGuardService
         /** @var array $guards */
         $guards = config('ail.guards');
 
-        if (!in_array($guard, $guards)) {
+        if (! in_array($guard, $guards)) {
             throw new GuardUnauthorized();
         }
 
         /** @var string|null $driver */
-        $driver = config('auth.providers.' . $guard . '.driver');
+        $driver = config('auth.providers.'.$guard.'.driver');
 
         if ($driver !== 'eloquent') {
             throw new ProviderDriverException();
         }
 
         /** @var string|null $model */
-        $model = config('auth.providers.' . $guard . '.model');
+        $model = config('auth.providers.'.$guard.'.model');
 
-        if (!$model || !class_exists($model)) {
+        if (! $model || ! class_exists($model)) {
             throw new ProviderModelException();
         }
 

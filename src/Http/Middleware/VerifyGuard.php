@@ -14,14 +14,14 @@ class VerifyGuard
         /** @var string|null $guard */
         $guard = $request->guard;
 
-        if (!$guard) {
+        if (! $guard) {
             return $next($request);
         }
 
         /** @var array $guards */
         $guards = config('ail.guards');
 
-        if (!in_array($guard, $guards)) {
+        if (! in_array($guard, $guards)) {
             abort(404);
         }
 

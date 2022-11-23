@@ -38,7 +38,7 @@ class AilController extends Controller
             'users' => $users,
             'guards' => $guards,
             'actualGuard' => $guard,
-            'actualUser' => $actualUser
+            'actualUser' => $actualUser,
         ]);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Webid\Ail\Tests\Database\Factories;
 
-use Webid\Ail\Tests\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Webid\Ail\Tests\Models\Admin;
 
 class AdminFactory extends Factory
 {

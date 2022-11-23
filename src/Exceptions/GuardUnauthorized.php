@@ -6,6 +6,6 @@ use Exception;
 
 class GuardUnauthorized extends Exception
 {
-    /** @var string  */
+    /** @var string */
     protected $message = 'Guard not authorized (not in config).';
 }

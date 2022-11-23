@@ -17,7 +17,7 @@ class VerifyEnv
         /** @var array $allowed */
         $allowed = config('ail.allowedEnv');
 
-        if (!in_array($env, $allowed)) {
+        if (! in_array($env, $allowed)) {
             abort(401);
         }
 

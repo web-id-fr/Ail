@@ -68,13 +68,13 @@ class TestCase extends Orchestra
         config()->set('ail', [
             'routes' => [
                 'prefix' => 'debug-impersonate',
-                'name' => 'debug-impersonate'
+                'name' => 'debug-impersonate',
             ],
             'guards' => [
                 'customers',
                 'admins',
                 'error-database',
-                'error-model'
+                'error-model',
             ],
             'allowedEnv' => [
                 'local',
@@ -84,8 +84,8 @@ class TestCase extends Orchestra
         ]);
         config()->set('app.env', 'local');
 
-        include_once __DIR__ . '/Database/migrations/create_admins_table.php';
-        include_once __DIR__ . '/Database/migrations/create_customers_table.php';
+        include_once __DIR__.'/Database/migrations/create_admins_table.php';
+        include_once __DIR__.'/Database/migrations/create_customers_table.php';
 
         (new \CreateAdminsTable())->up();
         (new \CreateCustomersTable())->up();

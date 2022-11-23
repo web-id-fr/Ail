@@ -6,6 +6,6 @@ use Exception;
 
 class ProviderDriverException extends Exception
 {
-    /** @var string  */
+    /** @var string */
     protected $message = 'Only eloquant provider supported';
 }

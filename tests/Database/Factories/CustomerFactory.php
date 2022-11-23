@@ -2,8 +2,8 @@
 
 namespace Webid\Ail\Tests\Database\Factories;
 
-use Webid\Ail\Tests\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Webid\Ail\Tests\Models\Customer;
 
 class CustomerFactory extends Factory
 {

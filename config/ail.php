@@ -3,10 +3,10 @@
 return [
     'routes' => [
         'prefix' => 'debug-impersonate',
-        'name' => 'debug-impersonate'
+        'name' => 'debug-impersonate',
     ],
     'guards' => [
-        'web'
+        'web',
     ],
     'allowedEnv' => [
         'local',
