@@ -32,7 +32,7 @@
                 </a>
             @endforeach
         </div>
-        <h3 class="subtitle">USERS</h3>
+        <h3 class="subtitle">USERS @if($isImpersonating) (Current: {{ $actualUser->getImpersonateName() }}) @endif</h3>
 
         <form action="{{ route(config('ail.routes.name') . '.index', ['guard' => $guard]) }}" method="GET">
             <div class="field has-addons">
