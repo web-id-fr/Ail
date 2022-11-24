@@ -44,7 +44,7 @@ class AilController extends Controller
             'guards' => $guards,
             'actualGuard' => $guard,
             'actualUser' => $actualUser,
-            'search' => $search
+            'search' => $search,
         ]);
     }
 }
