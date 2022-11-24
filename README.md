@@ -5,35 +5,51 @@
 
 ## Installation
 
-You can install the package via composer:
+1/ You can install the package via composer:
 
 ```bash
 composer require web-id/ail
 ```
 
-You can publish config
+2/ Install the package (config file)
 
 ```bash
 php artisan ail:install
 ```
 
+3/ Update the config especially `guard` and `allowedEnv`.
 This is the contents of the published config file:
 
 ```php
 return [
+    //URL
     'routes' => [
         'prefix' => 'ail',
         'name' => 'ail',
     ],
+    //Guard accessible
     'guards' => [
         'web',
     ],
+    //Allowed env (don't use with production)
     'allowedEnv' => [
         'local',
         'preproduction',
     ],
+    //Pagination
     'perPage' => 15,
 ];
+```
+
+4/ Update Models
+
+Add `Impersonate` Trait and `ImpersonateInterface` Interface on Authenticatable Models you want to impersonate.
+
+```php
+class User extends Authenticatable implements ImpersonateInterface
+{
+    use Impersonate;
+}
 ```
 
 Optionally, you can publish the views using

@@ -69,11 +69,11 @@
                         <th>
                             @if(!$isActualImpersonatedUser)
                                 <a href="{{ route(config('ail.routes.name') . '.impersonate', ['id' => $user->getKey(), 'guardName' => $actualGuard]) }}">
-                                    <button class="button is-success">IMPERSONATE</button>
+                                    <button class="button is-success is-small">IMPERSONATE</button>
                                 </a>
                             @else
                                 <a href="{{ route(config('ail.routes.name') . '.impersonate.leave') }}">
-                                    <button class="button is-danger">LEAVE</button>
+                                    <button class="button is-danger is-small">LEAVE</button>
                                 </a>
                             @endif
                         </th>
