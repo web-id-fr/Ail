@@ -6,8 +6,8 @@ use Webid\Ail\Services\UserGuardService;
 $service = app(UserGuardService::class);
 
 it('returns models for guard', function () use ($service) {
-    $customers = $service->getUsersForGuard('customers');
-    $admins = $service->getUsersForGuard('admins');
+    $customers = $service->getUsersForGuardAndSearch('customers');
+    $admins = $service->getUsersForGuardAndSearch('admins');
 
     expect($customers->count())->toBe(3)
         ->and($admins->count())->toBe(2);
@@ -15,7 +15,7 @@ it('returns models for guard', function () use ($service) {
 
 it('returns models for guard with per page', function () use ($service) {
     config()->set('ail.perPage', 1);
-    $customers = $service->getUsersForGuard('customers');
+    $customers = $service->getUsersForGuardAndSearch('customers');
 
     expect($customers->count())->toBe(1);
 })->with('customers');

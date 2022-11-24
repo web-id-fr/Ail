@@ -42,4 +42,9 @@ class Customer extends Authenticatable implements ImpersonateInterface
     {
         return $this->name;
     }
+
+    public function getImpersonateAttributeToSearch(): string
+    {
+        return 'name';
+    }
 }

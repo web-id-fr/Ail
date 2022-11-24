@@ -3,6 +3,7 @@
 namespace Webid\Ail\Services;
 
 use Exception;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Webid\Ail\Exceptions\GuardUnauthorized;
@@ -14,13 +15,19 @@ class UserGuardService
     /**
      * @throws Exception
      */
-    public function getUsersForGuard(string $guard): LengthAwarePaginator
+    public function getUsersForGuardAndSearch(string $guard, string $search = null): LengthAwarePaginator
     {
         $model = $this->getModelForGuard($guard);
         /** @var int $perPage */
         $perPage = config('ail.perPage', 15);
 
         return $model::query()
+            ->when($search, fn (Builder $query) => $query->where(
+                /** @phpstan-ignore-next-line  */
+                $model->getImpersonateAttributeToSearch(),
+                'LIKE',
+                "%$search%"
+            ))
             ->paginate($perPage);
     }
 

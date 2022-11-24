@@ -3,6 +3,7 @@
 namespace Webid\Ail\Http\Controllers;
 
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Lab404\Impersonate\Services\ImpersonateManager;
 use Webid\Ail\Http\Middleware\VerifyEnv;
@@ -22,7 +23,7 @@ class AilController extends Controller
     /**
      * @throws Exception
      */
-    public function index(string $guard = null): View
+    public function index(Request $request, string $guard = null): View
     {
         /** @var array $guards */
         $guards = config('ail.guards');
@@ -30,9 +31,11 @@ class AilController extends Controller
         $defaultGuard = $guards[0];
 
         $guard = $guard ?: $defaultGuard;
+        /** @var string|null $search */
+        $search = $request->input('search');
 
         $actualUser = auth()->user();
-        $users = $this->userGuardService->getUsersForGuard($guard);
+        $users = $this->userGuardService->getUsersForGuardAndSearch($guard, $search);
 
         return view('ail::index', [
             'isImpersonating' => $this->impersonateManager->isImpersonating(),
@@ -41,6 +44,7 @@ class AilController extends Controller
             'guards' => $guards,
             'actualGuard' => $guard,
             'actualUser' => $actualUser,
+            'search' => $search
         ]);
     }
 }

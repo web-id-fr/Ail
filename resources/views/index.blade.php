@@ -26,13 +26,24 @@
         <div class="tags are-large">
             @foreach($guards as $guard)
                 <a href="{{ route(config('ail.routes.name') . '.index', ['guard' => $guard]) }}" @if($guard === $actualGuard) class="active" @endif>
-                    <span class="tag is-link">
-                      {{ $guard }}
-                    </span>
+                <span class="tag is-link">
+                    {{ $guard }}
+                </span>
                 </a>
             @endforeach
         </div>
         <h3 class="subtitle">USERS</h3>
+
+        <form action="{{ route(config('ail.routes.name') . '.index', ['guard' => $guard]) }}" method="GET">
+            <div class="field has-addons">
+                <div class="control">
+                    <input class="input" type="text" name="search" placeholder="Find an user" value="{{ $search }}">
+                </div>
+                <div class="control">
+                    <input class="button is-info" type="submit" value="Search">
+                </div>
+            </div>
+        </form>
 
         <table class="table is-hoverable">
             <thead>
