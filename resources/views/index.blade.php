@@ -2,51 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AIL - Impersonate</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-<h1>IMPERSONATE USERS</h1>
 
-<h2>GUARDS</h2>
-<ul>
-    @foreach($guards as $guard)
-        <li>
-            <a href="{{ route(config('ail.routes.name') . '.index', ['guard' => $guard]) }}" @if($guard === $actualGuard) class="active" @endif>
-                {{ $guard }}
-            </a>
-        </li>
-    @endforeach
-</ul>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <p class="title">
+            IMPERSONATE USERS
+        </p>
+        <p class="subtitle">
+            Change user like a charm
+        </p>
+    </div>
+</section>
 
-<h3>USERS</h3>
-<ul>
-    @foreach($users as $user)
-        @php
-            $isActualImpersonatedUser = $isImpersonating && $user->getKey() === $actualUser?->getKey();
-        @endphp
+<section class="section">
+    <div class="container">
+        <h2 class="subtitle">GUARDS</h2>
 
-        @if(
-            ($impersonateId && $user->getKey() !== $impersonateId)
-            || (!$impersonateId && $user->getKey() !== $actualUser->getKey())
-        )
-            <li>
-                <a
-                    @if(!$isActualImpersonatedUser)
-                        href="{{ route(config('ail.routes.name') . '.impersonate', ['id' => $user->getKey(), 'guardName' => $actualGuard]) }}"
-                    @else
-                        href="#"
-                    @endif
-                >
-                    @if($isActualImpersonatedUser)
-                        <strong>{{ $user->getKey() }} - {{ $user->getImpersonateName() }}</strong>
-                        <a href="{{ route(config('ail.routes.name') . '.impersonate.leave') }}"><button>LEAVE</button></a>
-                    @else
-                        {{ $user->getKey() }} - {{ $user->getImpersonateName() }}
-                    @endif
+        <div class="tags are-large">
+            @foreach($guards as $guard)
+                <a href="{{ route(config('ail.routes.name') . '.index', ['guard' => $guard]) }}" @if($guard === $actualGuard) class="active" @endif>
+                    <span class="tag is-link">
+                      {{ $guard }}
+                    </span>
                 </a>
-            </li>
-        @endif
-    @endforeach
-</ul>
+            @endforeach
+        </div>
+        <h3 class="subtitle">USERS</h3>
+
+        <table class="table is-hoverable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($users as $user)
+                @php
+                    $isActualImpersonatedUser = $isImpersonating && $user->getKey() === $actualUser?->getKey();
+                @endphp
+
+                @if(
+                    ($impersonateId && $user->getKey() !== $impersonateId)
+                    || (!$impersonateId && $user->getKey() !== $actualUser->getKey())
+                )
+                    <tr>
+                        <th>{{ $user->getKey() }}</th>
+                        <th>{{ $user->getImpersonateName() }}</th>
+                        <th>
+                            @if(!$isActualImpersonatedUser)
+                                <a href="{{ route(config('ail.routes.name') . '.impersonate', ['id' => $user->getKey(), 'guardName' => $actualGuard]) }}">
+                                    <button class="button is-success">IMPERSONATE</button>
+                                </a>
+                            @else
+                                <a href="{{ route(config('ail.routes.name') . '.impersonate.leave') }}">
+                                    <button class="button is-danger">LEAVE</button>
+                                </a>
+                            @endif
+                        </th>
+                    </tr>
+                @endif
+            @endforeach
+            </tbody>
+        </table>
+
+        {{ $users->links('ail::components.pagination') }}
+    </div>
+</section>
 </body>
 </html>
