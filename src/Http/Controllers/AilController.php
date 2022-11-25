@@ -25,8 +25,10 @@ class AilController extends Controller
      */
     public function index(Request $request, string $guard = null): View
     {
+        /** @var array $config */
+        $config = config('ail.guards');
         /** @var array $guards */
-        $guards = config('ail.guards');
+        $guards = array_keys($config);
         /** @var string $defaultGuard */
         $defaultGuard = $guards[0];
 

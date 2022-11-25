@@ -18,8 +18,10 @@ class VerifyGuard
             return $next($request);
         }
 
+        /** @var array $config */
+        $config = config('ail.guards');
         /** @var array $guards */
-        $guards = config('ail.guards');
+        $guards = array_keys($config);
 
         if (! in_array($guard, $guards)) {
             abort(404);

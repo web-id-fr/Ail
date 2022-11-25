@@ -19,3 +19,9 @@ it('returns models for guard with per page', function () use ($service) {
 
     expect($customers->count())->toBe(1);
 })->with('customers');
+
+it('returns models for guard with search', function () use ($service) {
+    $customers = $service->getUsersForGuardAndSearch('customers', '1');
+
+    expect($customers->count())->toBe(1);
+})->with('customers');

@@ -12,10 +12,7 @@ if (in_array(config('app.env'), config('ail.allowedEnv'))) {
         ->name(config('ail.routes.name').'.')
         ->group(function () {
             Route::get('impersonate/take/{id}/{guardName?}', [ImpersonateController::class, 'take'])
-                ->name('impersonate')
-                ->middleware([
-                    CanImpersonate::class,
-                ]);
+                ->name('impersonate');
             Route::get('impersonate/leave', [ImpersonateController::class, 'leave'])
                 ->name('impersonate.leave')
                 ->middleware([

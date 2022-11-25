@@ -3,12 +3,12 @@
 namespace Webid\Ail\Services;
 
 use Exception;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Webid\Ail\Exceptions\GuardUnauthorized;
 use Webid\Ail\Exceptions\ProviderDriverException;
 use Webid\Ail\Exceptions\ProviderModelException;
+use Webid\Ail\Services\Interfaces\SearchInterface;
 
 class UserGuardService
 {
@@ -20,14 +20,9 @@ class UserGuardService
         $model = $this->getModelForGuard($guard);
         /** @var int $perPage */
         $perPage = config('ail.perPage', 15);
+        $searchUser = $this->getBuilderForGuard($guard);
 
-        return $model::query()
-            ->when($search, fn (Builder $query) => $query->where(
-                /** @phpstan-ignore-next-line  */
-                $model->getImpersonateAttributeToSearch(),
-                'LIKE',
-                "%$search%"
-            ))
+        return $searchUser($model::query(), $search)
             ->paginate($perPage);
     }
 
@@ -36,8 +31,10 @@ class UserGuardService
      */
     public function getModelForGuard(string $guard): Model
     {
+        /** @var array $config */
+        $config = config('ail.guards');
         /** @var array $guards */
-        $guards = config('ail.guards');
+        $guards = array_keys($config);
 
         if (! in_array($guard, $guards)) {
             throw new GuardUnauthorized();
@@ -66,7 +63,17 @@ class UserGuardService
         return $instance;
     }
 
-    private function getProviderForGuard(string $guard): ?string
+    public function getBuilderForGuard(string $guard): SearchInterface
+    {
+        /** @var string $builderClass */
+        $builderClass = config('ail.guards.'.$guard);
+        /** @var SearchInterface $builder */
+        $builder = new $builderClass;
+
+        return $builder;
+    }
+
+    public function getProviderForGuard(string $guard): ?string
     {
         /** @var string|null $provider */
         $provider = config("auth.guards.$guard.provider");

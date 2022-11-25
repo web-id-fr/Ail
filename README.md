@@ -21,6 +21,9 @@ php artisan ail:install
 This is the contents of the published config file:
 
 ```php
+
+use Webid\Ail\Services\SearchUser;
+
 return [
     //URL
     'routes' => [
@@ -29,7 +32,7 @@ return [
     ],
     //Guard accessible
     'guards' => [
-        'web',
+        'web' => SearchUser::class, //Builder by default for search (required, but you can set create custom)
     ],
     //Allowed env (don't use with production)
     'allowedEnv' => [
@@ -43,20 +46,17 @@ return [
 
 4/ Update Models
 
-Add `Impersonate` Trait and `ImpersonateInterface` Interface on Authenticatable Models you want to impersonate.
+Add `Impersonate` Trait on Authenticatable Models you want to impersonate.
 
 ```php
-class User extends Authenticatable implements ImpersonateInterface
+class User extends Authenticatable
 {
     use Impersonate;
 }
 ```
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="ail-views"
-```
+5/ Update Views to your own logic on resources/views/vendors/ail.
+By default, it will display `name` attribute.
 
 ## Changelog
 

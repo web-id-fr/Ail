@@ -5,6 +5,7 @@ namespace Webid\Ail\Tests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Webid\Ail\AilServiceProvider;
+use Webid\Ail\Services\SearchUser;
 use Webid\Ail\Tests\Models\Admin;
 use Webid\Ail\Tests\Models\Customer;
 
@@ -96,17 +97,17 @@ class TestCase extends Orchestra
                 ],
             ],
             'guards' => [
-                'customers',
-                'admins',
-                'error-database',
-                'error-model',
+                'customers' => SearchUser::class,
+                'admins' => SearchUser::class,
+                'error-database' => SearchUser::class,
+                'error-model' => SearchUser::class,
             ],
             'allowedEnv' => [
                 'local',
                 'preproduction',
+                'testing',
             ],
             'perPage' => 15,
         ]);
-        config()->set('app.env', 'local');
     }
 }

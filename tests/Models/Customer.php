@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
-use Webid\Ail\Interfaces\ImpersonateInterface;
 
-class Customer extends Authenticatable implements ImpersonateInterface
+class Customer extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
@@ -37,14 +36,4 @@ class Customer extends Authenticatable implements ImpersonateInterface
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function getImpersonateName(): string
-    {
-        return $this->name;
-    }
-
-    public function getImpersonateAttributeToSearch(): string
-    {
-        return 'name';
-    }
 }

@@ -14,5 +14,5 @@ pint:
 
 test:
 	make pint
-	make pest
 	make stan
+	make pest
