@@ -61,7 +61,7 @@
 
                 @if(
                     ($impersonateId && $user->getKey() !== $impersonateId)
-                    || (!$impersonateId && $user->getKey() !== $actualUser->getKey())
+                    || (!$impersonateId && $user->getKey() !== $actualUser?->getKey())
                 )
                     <tr>
                         <th>{{ $user->getKey() }}</th>

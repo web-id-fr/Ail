@@ -29,6 +29,10 @@ return [
     'routes' => [
         'prefix' => 'ail',
         'name' => 'ail',
+        'middlewares' => [
+            'web',
+            CanImpersonate::class,
+        ],
     ],
     //Guard accessible
     'guards' => [
