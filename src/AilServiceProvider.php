@@ -22,7 +22,7 @@ class AilServiceProvider extends PackageServiceProvider
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
-                    ->startWith(fn (InstallCommand $command) => $command->call('artisan vendor:publish', ['--tag' => 'ail-views']))
+                    ->startWith(fn (InstallCommand $command) => $command->call('vendor:publish', ['--tag' => 'ail-views']))
                     ->askToStarRepoOnGitHub('web-id-fr/ail');
             })
             ->hasViews();

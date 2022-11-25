@@ -25,7 +25,7 @@ class CanImpersonate
         $user = auth()->user();
 
         /** @phpstan-ignore-next-line  */
-        if ($user && ! $user->canImpersonate()) {
+        if (!$user || !$user->canImpersonate()) {
             abort(403);
         }
 

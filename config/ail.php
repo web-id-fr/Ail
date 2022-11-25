@@ -9,7 +9,7 @@ return [
         'name' => 'ail',
         'middlewares' => [
             'web',
-            CanImpersonate::class
+            CanImpersonate::class,
         ],
     ],
     'guards' => [

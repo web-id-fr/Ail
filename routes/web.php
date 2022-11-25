@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Webid\Ail\Http\Controllers\AilController;
 use Webid\Ail\Http\Controllers\ImpersonateController;
-use Webid\Ail\Http\Middleware\CanImpersonate;
 use Webid\Ail\Http\Middleware\IsImpersonating;
 
 if (in_array(config('app.env'), config('ail.allowedEnv'))) {
