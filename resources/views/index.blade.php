@@ -14,7 +14,7 @@
             IMPERSONATE USERS
         </p>
         <p class="subtitle">
-            Change user like a charm
+            Change user by guard
         </p>
     </div>
 </section>

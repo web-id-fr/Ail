@@ -1,14 +1,18 @@
-# Authentication page to change user easily in debug mode
+# AIL - Authentication with Impersonate guarded by a Lion
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/web-id/ail.svg?style=flat-square)](https://packagist.org/packages/web-id/ail)
 [![Total Downloads](https://img.shields.io/packagist/dt/web-id/ail.svg?style=flat-square)](https://packagist.org/packages/web-id/ail)
+
+Authentication page to change user easily
+
+![Ail homepage](https://github.com/web-id-fr/Ail/blob/main/src/commun/ail.png?raw=true "Ail homepage")
 
 ## Installation
 
 1/ You can install the package via composer:
 
 ```bash
-composer require web-id/ail
+composer require web-id/ail --dev
 ```
 
 2/ Install the package (config file)
@@ -21,11 +25,18 @@ php artisan ail:install
 This is the contents of the published config file:
 
 ```php
-
-use Webid\Ail\Services\SearchUser;
-
 return [
-    //URL
+    /*
+    |--------------------------------------------------------------------------
+    | Route configuration
+    |--------------------------------------------------------------------------
+    |
+    | This values will change the route configuration for the application routes.
+    | You can define the prefix, name and set your own middleware on it.
+    | Middleware web is require for authentication and CanImpersonate for security.
+    |
+    */
+
     'routes' => [
         'prefix' => 'ail',
         'name' => 'ail',
@@ -34,16 +45,48 @@ return [
             CanImpersonate::class,
         ],
     ],
-    //Guard accessible
+
+    /*
+    |--------------------------------------------------------------------------
+    | Guards to display
+    |--------------------------------------------------------------------------
+    |
+    | This value is a list of guard that you want to display and impersonate. You
+    | need to set the name on key and the service builder on value. The service
+    | builder is required for search bar on view. By default, you can use
+    | SearchUser::class that search on `name` attribute. You are free and encouraged
+    | to create your own service.
+    |
+    */
+
     'guards' => [
-        'web' => SearchUser::class, //Builder by default for search (required, but you can set create custom)
+        'web' => SearchUser::class,
     ],
-    //Allowed env (don't use with production)
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allowed environment security
+    |--------------------------------------------------------------------------
+    |
+    | This value is a list of environment authorized for this package. It will
+    | use APP_ENV. WARNING : This package is not recommended on risky environment
+    | like production or preprod with sensitive data.
+    */
+
     'allowedEnv' => [
         'local',
         'preproduction',
     ],
-    //Pagination
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pagination
+    |--------------------------------------------------------------------------
+    |
+    | This value is the pagination number for view.
+    |
+    */
+
     'perPage' => 15,
 ];
 ```
@@ -66,17 +109,9 @@ By default, it will display `name` attribute.
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
 ## Credits
 
-- [Leo Tiollier](https://github.com/web-id)
+- [Leo Tiollier](https://github.com/LTiollier)
 
 ## License
 
