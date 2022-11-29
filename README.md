@@ -21,8 +21,8 @@ composer require web-id/ail --dev
 php artisan ail:install
 ```
 
-3/ Update the config especially `guard` and `allowedEnv`.
-This is the contents of the published config file:
+3/ Update the config, especially `guard` and `allowedEnv`.
+This is the content of the published config files:
 
 ```php
 return [
@@ -31,9 +31,9 @@ return [
     | Route configuration
     |--------------------------------------------------------------------------
     |
-    | This values will change the route configuration for the application routes.
-    | You can define the prefix, name and set your own middleware on it.
-    | Middleware web is require for authentication and CanImpersonate for security.
+    | These values will change the route configuration for the application routes.
+    | You can define the prefix, the name and set your own middleware on it.
+    | Web middleware is required for authentication and CanImpersonate for security.
     |
     */
 
@@ -51,7 +51,7 @@ return [
     | Guards to display
     |--------------------------------------------------------------------------
     |
-    | This value is a list of guard that you want to display and impersonate. You
+    | This value is a list of guards that you want to display and impersonate. You
     | need to set the name on key and the service builder on value. The service
     | builder is required for search bar on view. By default, you can use
     | SearchUser::class that search on `name` attribute. You are free and encouraged
@@ -68,8 +68,8 @@ return [
     | Allowed environment security
     |--------------------------------------------------------------------------
     |
-    | This value is a list of environment authorized for this package. It will
-    | use APP_ENV. WARNING : This package is not recommended on risky environment
+    | This value is a list of environments authorized for this package. It will
+    | use APP_ENV. WARNING : This package is not recommended on risky environments
     | like production or preprod with sensitive data.
     */
 
@@ -103,7 +103,7 @@ class User extends Authenticatable
 ```
 
 5/ Update Views to your own logic on resources/views/vendors/ail.
-By default, it will display `name` attribute.
+By default, it will display the `name` attribute.
 
 ## Changelog
 
