@@ -9,9 +9,9 @@ return [
     | Route configuration
     |--------------------------------------------------------------------------
     |
-    | This values will change the route configuration for the application routes.
-    | You can define the prefix, name and set your own middleware on it.
-    | Middleware web is require for authentication and CanImpersonate for security.
+    | These values will change the route configuration for the application routes.
+    | You can define the prefix, the name and set your own middleware on it.
+    | Web middleware is required for authentication and CanImpersonate for security.
     |
     */
 
@@ -29,7 +29,7 @@ return [
     | Guards to display
     |--------------------------------------------------------------------------
     |
-    | This value is a list of guard that you want to display and impersonate. You
+    | This value is a list of guards that you want to display and impersonate. You
     | need to set the name on key and the service builder on value. The service
     | builder is required for search bar on view. By default, you can use
     | SearchUser::class that search on `name` attribute. You are free and encouraged
@@ -46,8 +46,8 @@ return [
     | Allowed environment security
     |--------------------------------------------------------------------------
     |
-    | This value is a list of environment authorized for this package. It will
-    | use APP_ENV. WARNING : This package is not recommended on risky environment
+    | This value is a list of environments authorized for this package. It will
+    | use APP_ENV. WARNING : This package is not recommended on risky environments
     | like production or preprod with sensitive data.
     */
 
