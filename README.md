@@ -9,19 +9,26 @@ Authentication page to change user easily
 
 ## Installation
 
-1/ You can install the package via composer:
+### 1/ Composer
+
+You can install the package via composer:
 
 ```bash
-composer require web-id/ail --dev
+composer require web-id/ail
 ```
 
-2/ Install the package (config file)
+### 2/ Package installation
+
+Install the package (config file and views) with this command :
 
 ```bash
 php artisan ail:install
 ```
 
-3/ Update the config, especially `guard` and `allowedEnv`.
+### 3/ Configuration
+
+Update the config, especially `guard` and `allowedEnv`.
+
 This is the content of the published config files:
 
 ```php
@@ -91,7 +98,7 @@ return [
 ];
 ```
 
-4/ Update Models
+### 4/ Update Models
 
 Add `Impersonate` Trait on Authenticatable Models you want to impersonate.
 
@@ -102,8 +109,19 @@ class User extends Authenticatable
 }
 ```
 
-5/ Update Views to your own logic on resources/views/vendors/ail.
+### 5/ Update Views
+
+You can add your own logic on resources/views/vendors/ail.
+
 By default, it will display the `name` attribute.
+
+### 6/ More options
+
+See : [https://github.com/404labfr/laravel-impersonate](https://github.com/404labfr/laravel-impersonate)
+
+WARNING : Don't forget to set authorization for who can impersonate : [https://github.com/404labfr/laravel-impersonate#defining-impersonation-authorization](https://github.com/404labfr/laravel-impersonate#defining-impersonation-authorization)
+
+By default all users can be impersonated.
 
 ## Changelog
 
